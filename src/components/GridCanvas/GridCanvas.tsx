@@ -1,13 +1,19 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
+import { SimulationContext } from '../../contexts/SimulationContext';
 
 interface GridCanvasProps {
   gridSize: number;
   cellSize: number;
+  occupiedCells: Set<string>;
 }
 
-const GridCanvas: React.FC<GridCanvasProps> = ({ gridSize = 100, cellSize = 10 }) => {
+const GridCanvas: React.FC<GridCanvasProps> = () => {
+  const context = useContext(SimulationContext);
+
+  const gridSize = context.gridSize;
+  const cellSize = context.cellSize;
   const canvasSize = gridSize * cellSize;
-  const [occupiedCells, setOccupiedCells] = useState<Set<string>>(new Set());
+  const [occupiedCells, setOccupiedCells] = useState<Set<string>>(context.occupiedCells);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -26,7 +32,7 @@ const GridCanvas: React.FC<GridCanvasProps> = ({ gridSize = 100, cellSize = 10 }
         drawCells(ctx);
       }
     }
-  }, [occupiedCells]);
+  }, [occupiedCells, canvasSize, cellSize]);
 
   const drawGrid = (ctx: CanvasRenderingContext2D) => {
     ctx.strokeStyle = "#000";

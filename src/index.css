@@ -9,4 +9,12 @@ body {
   line-height: 1.5;
   color: #333;
   background-color: #f8f9fa;
+  display: flex;
+}
+
+.pageContent {
+  max-width: 100vb;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
 }
