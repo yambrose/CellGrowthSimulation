@@ -1,5 +1,3 @@
-import styles from './Slider.module.css';
-
 interface SliderProps {
     value: number;
     onChange: (value: number) => void;
@@ -11,12 +9,13 @@ interface SliderProps {
 
 const Slider: React.FC<SliderProps> = ({ value, onChange, min, max, step, label }) => {
 
-
-
-    return <>
+    return <div className="sliderBlock">
         <label>{label}</label>
-        <input type="range" min={min} max={max} step={step} defaultValue={value} onChange={(e) => onChange(Number(e.target.value))} />
-    </>
+        <span>
+            <input type="range" min={min} max={max} step={step} defaultValue={value} onChange={(e) => onChange(Number(e.target.value))} />
+            <label>{value}</label>
+        </span>
+    </div>
 };
 
 export default Slider;

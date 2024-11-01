@@ -1,20 +1,113 @@
-* {
-  margin: 0;
-  padding: 0;
+/* variables */
+:root {
+  --primary: #B6B6B6;
+  --secondary: #D9D9D9;
+  --sideBarColorA: #132E4F;
+  --sideBarColorB: #08192D;
+  --defaultMargin: 10px;
+  --defaultPadding: 10px;
+  --defaultBorderRadius: 10px;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-  background-color: #f8f9fa;
-  display: flex;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter';
+  background: var(--primary);
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
 }
 
 .pageContent {
-  max-width: 100vb;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.canvasContainer {
+  width: calc(100% - 2 * var(--defaultMargin));
+  height: calc(100vh - 2 * var(--defaultMargin));
+  margin: var(--defaultMargin);
+  padding: var(--defaultPadding);
+  background: #D9D9D9;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  box-sizing: border-box;
+  transition: all 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: relative;
+}
+
+.sideBar {
+  margin: var(--defaultMargin);
+  padding: var(--defaultPadding);
+  width: calc(20% - 2 * var(--defaultMargin));
+  height: calc(100vh - 2 * var(--defaultMargin));
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--sideBarColorA) 0%, var(--sideBarColorB) 10%, var(--sideBarColorB) 80%, var(--sideBarColorA) 100%);
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  box-sizing: border-box;
+  transition: all 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  overflow: hidden;
+}
+
+.sideBar.closed {
+  width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* .sideBar:hover {
+  width: 5%;
+
+} */
+
+.sideBar h1 {
+  font-size: 2rem;
+  margin: var(--defaultMargin);
+}
+
+.sliderBlock {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.controlButton {
+  width: 5.25rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border: 1px solid #C1FCBE;
+  background: #64FF76;
+  box-shadow: 0px 0px 5.8px 0px #64FF76;
+  border-radius: 2.5rem;
+}
+
+.controlButton:hover {
+  background: #52cc5e;
+  box-shadow: 0px 0px 7px 0px #52cc5e;
+}
+
+.stats {
+  border-radius: 0.375rem;
+  border: 1px solid #091A2E;
+  background: #112B4A;
 }

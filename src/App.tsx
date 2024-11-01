@@ -1,14 +1,19 @@
 import { useState } from "react";
-import GridCanvas from "./components/GridCanvas/GridCanvas";
-import SideBar from "./components/SideBar/SideBar";
+import GridCanvas from "./components/GridCanvas";
+import SideBar from "./components/SideBar";
 import SimulationContextProvider from "./contexts/SimulationContext";
 
 export default function App() {
-  
+
   return (
     <SimulationContextProvider>
-      <SideBar />
-      <GridCanvas gridSize={50} cellSize={10} occupiedCells={new Set<string>} />
+      <div className="pageContent">
+        <SideBar />
+        <div className="canvasContainer">
+          <GridCanvas />
+        </div>
+      </div>
+
     </SimulationContextProvider>
   );
 }
