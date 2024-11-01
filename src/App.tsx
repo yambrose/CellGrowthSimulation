@@ -5,9 +5,15 @@ import SimulationContextProvider from "./contexts/SimulationContext";
 
 export default function App() {
 
+  const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <SimulationContextProvider>
-      <div className="pageContent">
+      <div className="pageContent"
+        onContextMenu={handleContextMenu}
+      >
         <SideBar />
         <div className="canvasContainer">
           <GridCanvas />

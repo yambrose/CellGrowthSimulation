@@ -117,12 +117,17 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
     }
 
     const updateOccupiedCells = (cellId: string) => {
-        setOccupiedCells((prev) => {
-            if (!keyInGrid(cellId)) return prev;
 
+        setOccupiedCells((prev) => {
             const newOccupiedCells = new Map(prev);
-            newOccupiedCells.set(cellId, bacLifespan);
-            return newOccupiedCells;
+
+            if (prev.has(cellId)) {
+                newOccupiedCells.delete(cellId);
+            } else {
+                newOccupiedCells.set(cellId, bacLifespan);
+            }
+
+            return newOccupiedCells
         });
     };
 

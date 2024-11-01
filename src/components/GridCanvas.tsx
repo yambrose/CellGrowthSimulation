@@ -6,7 +6,7 @@ const GridCanvas: React.FC = () => {
 
   if (!context) return <div>Loading...</div>
 
-  const {gridSize, cellSize, occupiedCells} = context;
+  const { gridSize, cellSize, occupiedCells } = context;
   const canvasSize = gridSize * cellSize;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isPanning, setIsPanning] = useState(false);
@@ -95,6 +95,9 @@ const GridCanvas: React.FC = () => {
   }
 
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+
+    if (event.button !== 0) return;
+
     const canvas = canvasRef.current;
     if (canvas) {
       const rect = canvas.getBoundingClientRect();
@@ -137,10 +140,6 @@ const GridCanvas: React.FC = () => {
     setIsPanning(false);
   };
 
-  const handleContextMenu = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    event.preventDefault();
-  };
-
   return (
     <canvas
       ref={canvasRef}
@@ -149,7 +148,6 @@ const GridCanvas: React.FC = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
-      onContextMenu={handleContextMenu}
       style={{ cursor: isPanning ? 'grabbing' : 'grab', position: 'absolute', top: 0, left: 0 }}
     />
   );
