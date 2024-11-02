@@ -3,7 +3,6 @@ import ContextMenu from './ContextMenu';
 import { useContext } from 'react';
 import { SimulationContext } from '../contexts/SimulationContext';
 import { Button } from './Button';
-import Stats from './Stats';
 import BurgerSVG from "../assets/Burger.svg";
 import PlaySVG from "../assets/Play.svg";
 import PauseSVG from "../assets/Pause.svg";

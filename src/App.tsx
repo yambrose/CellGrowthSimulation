@@ -1,4 +1,3 @@
-import { useState } from "react";
 import GridCanvas from "./components/GridCanvas";
 import SideBar from "./components/SideBar";
 import SimulationContextProvider from "./contexts/SimulationContext";
