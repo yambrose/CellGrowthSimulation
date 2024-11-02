@@ -14,6 +14,7 @@ interface SimulationContextType {
     bacLifespanRange: [number, number];
     updateIntervalRange: [number, number];
     sideBarOpen: boolean;
+    cellCountHistory: number[];
 
     togglePlaying: () => void;
     handleReset: () => void;
@@ -27,8 +28,8 @@ interface SimulationContextType {
     displayStats: () => void;
     openSideBar: () => void;
     closeSideBar: () => void;
-    cellCountHistory: number[];
     addCellCountToHistory: (count: number) => void;
+    clearHistoryData: () => void;
 }
 
 interface SimulationProviderProps {
@@ -57,7 +58,7 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
     const [occupiedCells, setOccupiedCells] = useState<Map<string, number>>(new Map());
 
     const updateGridSize = (newSize: number) => {
-        if (newSize > 0) {
+        if (newSize >= gridSizeRange[0] && newSize <= gridSizeRange[1]) {
             setGridSize(newSize);
         }
         //remove all cells that are out of bounds
@@ -73,7 +74,7 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
     };
 
     const updateCellSize = (newSize: number) => {
-        if (newSize > 0) {
+        if (newSize >= cellSizeRange[0] && newSize <= cellSizeRange[1]) {
             setCellSize(newSize);
         }
     };
@@ -85,6 +86,10 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
     const handleReset = () => {
         setOccupiedCells(new Map());
         setIsPlaying(false);
+    };
+
+    const clearHistoryData = () => {
+        setCellCountHistory([]);
     };
 
     const updateBacFailRate = (newRate: number) => {
@@ -186,6 +191,9 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
                 }
             });
 
+            if (newOccupiedCells.size === 0) {
+                handleReset();
+            }
             addCellCountToHistory(newOccupiedCells.size);
             return newOccupiedCells;
         });
@@ -221,7 +229,8 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
                 displayStats,
                 openSideBar,
                 closeSideBar,
-                addCellCountToHistory
+                addCellCountToHistory,
+                clearHistoryData
             }}
         >
             {children}

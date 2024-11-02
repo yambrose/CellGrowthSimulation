@@ -1,12 +1,14 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { SimulationContext } from '../contexts/SimulationContext';
+import NoDataSVG from '../assets/NoData.svg';
 
 const Stats: React.FC = () => {
     const context = useContext(SimulationContext);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    if (!context) return;
+
     const drawGraph = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-        if (!context?.cellCountHistory?.length) return;
 
         ctx.clearRect(0, 0, width, height);
 
@@ -106,24 +108,51 @@ const Stats: React.FC = () => {
         canvas.style.height = `${rect.height}px`;
 
         drawGraph(ctx, rect.width, rect.height);
-    }, [context?.cellCountHistory]);
+    }, [context.cellCountHistory]);
 
     return (
-        <div className="stats">
-            <h3>Population History</h3>
-            <div style={{ position: 'relative', width: '100%', height: '200px' }}>
-                <canvas
-                    ref={canvasRef}
+        <div className="stats" style={{ position: 'relative' }}>
+            <h3>POPULATION HISTORY</h3>
+            {context.cellCountHistory.length === 0 &&
+                <div
                     style={{
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: '8px',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 2,
+                        textAlign: 'center',
                     }}
-                />
+                >
+                    <img src={NoDataSVG} alt="No data" />
+                    <p>There's no data to show...</p>
+                </div>
+            }
+            <div
+                style={{
+                    height: context.cellCountHistory.length === 0 ? '0%' : '100%',
+                    filter: context.cellCountHistory.length === 0 ? 'blur(5px)' : 'none',
+                }}>
+                <div className="graphContainer" style={{ position: 'relative', zIndex: 1 }}>
+                    <canvas
+                        ref={canvasRef}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '8px',
+                        }}
+                    />
+                </div>
+                <span>
+                    <p>Max: {Math.max(...context?.cellCountHistory || [0])}</p>
+                    <p>Min: {Math.min(...context?.cellCountHistory || [0])}</p>
+                    <p>Cell Count: {context?.occupiedCells.size || 0}</p>
+                </span>
+                <button onClick={context.clearHistoryData}>Clear Data</button>
             </div>
-            <p>Current cells: {context?.occupiedCells.size || 0}</p>
         </div>
     );
+
 };
 
 export default Stats;
