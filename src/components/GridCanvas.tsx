@@ -15,7 +15,7 @@ const GridCanvas: React.FC = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (occupiedCells.size === 0) { context.togglePlaying(); }
+    // if (occupiedCells.size === 0) { context.togglePlaying(); }
     // Happens if canvas is on the not null
     if (canvas) {
       canvas.width = canvasSize;
