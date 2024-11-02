@@ -15,6 +15,7 @@ Cell Growth Simulation is an interactive web application built with React, TypeS
 - **Responsive Sidebar**: Access simulation controls and statistics through a collapsible sidebar.
 - **Performance Optimization**: Efficient rendering of large grids with optimized drawing techniques.
 - **Context Menu**: Right-click to access additional options and navigate the canvas.
+## Project Structure
 ```
 cell-growth-simulation/
 ├── .gitignore
@@ -49,7 +50,6 @@ cell-growth-simulation/
 ├── tsconfig.node.json
 └── vite.config.ts
 ```
-## Project Structure
 ### Key Components
 - `src/App.tsx`: The root component that sets up the simulation context and renders the main layout, including the sidebar and grid canvas.
 
