@@ -3,6 +3,10 @@
 ## Overview
 Cell Growth Simulation is an interactive web application built with React, TypeScript, and Vite. It simulates cellular growth patterns on a grid-based canvas. Users can manipulate various parameters to observe different growth behaviors while monitoring population statistics in real-time.
 
+## Controls
+- **Left Click**: Place or remove a cell on the grid.
+- **Right Click + Drag**: Pan around the grid.
+
 ## Features
 - **Interactive Grid Canvas**: Click to spawn/remove cells on a customizable grid.
 - **Real-time Statistics**: Monitor population changes through a dynamic graph.
