@@ -24,7 +24,6 @@ const SideBar: React.FC = () => {
             <aside className={`sideBar ${!context.sideBarOpen && 'closed'}`}>
                 <img src={BurgerSVG} className="burgerIcon" onClick={context.closeSideBar} />
                 <img src={TitleSVG} />
-                <Stats />
                 <Slider
                     value={context.gridSize}
                     label='Grid Size'

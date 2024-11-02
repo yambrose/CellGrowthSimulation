@@ -111,13 +111,13 @@ const Stats: React.FC = () => {
     }, [context.cellCountHistory]);
 
     return (
-        <div className="stats" style={{ position: 'relative' }}>
-            <h3>POPULATION HISTORY</h3>
+        <div className="stats">
+            <h2>POPULATION HISTORY</h2>
             {context.cellCountHistory.length === 0 &&
                 <div
                     style={{
                         position: 'absolute',
-                        top: '50%',
+                        top: '60%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                         zIndex: 2,

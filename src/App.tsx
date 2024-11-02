@@ -2,6 +2,7 @@ import { useState } from "react";
 import GridCanvas from "./components/GridCanvas";
 import SideBar from "./components/SideBar";
 import SimulationContextProvider from "./contexts/SimulationContext";
+import Stats from "./components/Stats";
 
 export default function App() {
 
@@ -15,6 +16,7 @@ export default function App() {
         onContextMenu={handleContextMenu}
       >
         <SideBar />
+        <Stats />
         <div className="canvasContainer">
           <GridCanvas />
         </div>
