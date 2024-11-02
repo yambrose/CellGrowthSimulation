@@ -65,25 +65,24 @@ const GridCanvas: React.FC = () => {
   }, [panOffset]);
 
   const drawGrid = (ctx: CanvasRenderingContext2D) => {
-    ctx.strokeStyle = "#B6B6B6";
-
+    ctx.strokeStyle = "#fff";
+    ctx.beginPath();
+  
     // Draw vertical lines
     for (let i = 0; i <= gridSize; i++) {
       const x = i * cellSize;
-      ctx.beginPath();
       ctx.moveTo(x, 0);
       ctx.lineTo(x, canvasSize);
-      ctx.stroke();
     }
-
+  
     // Draw horizontal lines
     for (let i = 0; i <= gridSize; i++) {
       const y = i * cellSize;
-      ctx.beginPath();
       ctx.moveTo(0, y);
       ctx.lineTo(canvasSize, y);
-      ctx.stroke();
     }
+  
+    ctx.stroke();
   };
 
   const drawCells = (ctx: CanvasRenderingContext2D) => {
@@ -148,7 +147,7 @@ const GridCanvas: React.FC = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
-      style={{ cursor: isPanning ? 'grabbing' : 'grab', position: 'absolute', top: 0, left: 0 }}
+      style={{ cursor: isPanning ? 'grabbing' : 'grab', position: 'absolute', top: 0, left: 0,  backgroundColor: '#B6B6B6' }}
     />
   );
 }

@@ -64,6 +64,8 @@ button {
   transition: all 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
   position: relative;
   box-shadow: var(--sideBarColorA) 0px 0px 5px 0px;
+  background-image: url('./assets/blankBackground.png');
+  
 }
 
 .sideBar {
