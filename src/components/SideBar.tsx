@@ -90,7 +90,6 @@ const SideBar: React.FC = () => {
                             onClick={context.togglePlaying}
                             classes='cButtonYellow'
                             icon={PauseSVG}
-                            disabled={context.occupiedCells.size === 0}
                         >
                             Pause
                         </Button>

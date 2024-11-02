@@ -220,7 +220,7 @@ input[type=number]::-webkit-outer-spin-button {
 /* Range input styles */
 input[type="range"] {
   -webkit-appearance: none;
-  width: 100%;
+  width: 90%;
   height: 8px;
   background: var(--sliderTrackColor);
   outline: none;

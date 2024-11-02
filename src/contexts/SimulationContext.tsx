@@ -27,6 +27,8 @@ interface SimulationContextType {
     displayStats: () => void;
     openSideBar: () => void;
     closeSideBar: () => void;
+    cellCountHistory: number[];
+    addCellCountToHistory: (count: number) => void;
 }
 
 interface SimulationProviderProps {
@@ -44,6 +46,7 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
     const [bacLifespan, setBacLifespan] = useState<number>(3);
     const [updateInterval, setUpdateInterval] = useState<number>(1);
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true);
+    const [cellCountHistory, setCellCountHistory] = useState<number[]>([]);
 
     const gridSizeRange: [number, number] = [10, 200];
     const cellSizeRange: [number, number] = [10, 100];
@@ -103,12 +106,13 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
     };
 
     const displayStats = () => {
-        console.log('gridSize:', gridSize);
-        console.log('cellSize:', cellSize);
+        // console.log('gridSize:', gridSize);
+        // console.log('cellSize:', cellSize);
         console.log('occupiedCells:', occupiedCells);
         console.log('isPlaying:', isPlaying);
-        console.log('bacFailRate:', bacFailRate);
-        console.log('bacLifespan:', bacLifespan);
+        // console.log('bacFailRate:', bacFailRate);
+        // console.log('bacLifespan:', bacLifespan);
+        // console.log(cellCountHistory);
     }
 
     const keyInGrid = (key: string) => {
@@ -129,6 +133,12 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
 
             return newOccupiedCells
         });
+
+    };
+
+
+    const addCellCountToHistory = (count: number) => {
+        setCellCountHistory(prev => [...prev.slice(-19), count].slice(-20));
     };
 
     const closeSideBar = () => {
@@ -140,6 +150,12 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
     };
 
     const updateGrid = () => {
+
+        if (occupiedCells.size === 0) {
+            setIsPlaying(false);
+            return;
+        }
+
         setOccupiedCells((prev) => {
             const newOccupiedCells = new Map(prev);
 
@@ -170,7 +186,7 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
                 }
             });
 
-            console.log('updated occupied cells');
+            addCellCountToHistory(newOccupiedCells.size);
             return newOccupiedCells;
         });
     };
@@ -192,6 +208,7 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
                 updateInterval,
                 updateIntervalRange,
                 sideBarOpen,
+                cellCountHistory,
                 togglePlaying,
                 handleReset,
                 updateBacFailRate,
@@ -203,7 +220,8 @@ const SimulationContextProvider: React.FC<SimulationProviderProps> = ({ children
                 updateGrid,
                 displayStats,
                 openSideBar,
-                closeSideBar
+                closeSideBar,
+                addCellCountToHistory
             }}
         >
             {children}
