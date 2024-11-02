@@ -8,11 +8,13 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({onClick, children, classes, icon, disabled }) => {
+export const Button: React.FC<ButtonProps> = ({ onClick, children, classes, icon, disabled }) => {
   return (
     <button disabled={disabled} onClick={onClick} className={`controlButton ${classes}`}>
-      {icon && <img className='icon'>{icon}</img>}
-      {children}
+      <span>
+        {icon && <img className='buttonIcon' src={icon} />}
+        {children}
+      </span>
     </button>
   );
 };

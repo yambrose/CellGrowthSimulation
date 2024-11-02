@@ -65,7 +65,7 @@ const GridCanvas: React.FC = () => {
   }, [panOffset]);
 
   const drawGrid = (ctx: CanvasRenderingContext2D) => {
-    ctx.strokeStyle = "#000";
+    ctx.strokeStyle = "#B6B6B6";
 
     // Draw vertical lines
     for (let i = 0; i <= gridSize; i++) {
@@ -87,7 +87,7 @@ const GridCanvas: React.FC = () => {
   };
 
   const drawCells = (ctx: CanvasRenderingContext2D) => {
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = "#08192D";
     for (const key of occupiedCells.entries()) {
       const [x, y] = key[0].split(",").map(Number);
       ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);

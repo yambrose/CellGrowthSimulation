@@ -69,7 +69,7 @@ button {
 .sideBar {
   margin: var(--defaultMargin);
   padding: var(--defaultPadding);
-  width: calc(20% - 2 * var(--defaultMargin));
+  width: calc(25% - 2 * var(--defaultMargin));
   height: calc(100vh - 2 * var(--defaultMargin));
   border-radius: 10px;
   background: linear-gradient(180deg, var(--sideBarColorA) 0%, var(--sideBarColorB) 10%, var(--sideBarColorB) 80%, var(--sideBarColorA) 100%);
@@ -79,7 +79,7 @@ button {
   color: #fff;
   box-shadow: 0px 0px 5px 0px var(--sideBarColorA);
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
 
   transition: all 200ms cubic-bezier(0.25, 0.1, 0.25, 1);
 
@@ -112,8 +112,9 @@ button {
 }
 
 .controlButton {
-  width: 7.5rem;
-  height: 3.5rem;
+  padding: 0.25rem;
+  width: 9rem;
+  height: 3rem;
   flex-shrink: 0;
   color: #fff;
   text-shadow: hsla(0, 0%, 0%, 0.25) 3px 1px 2px;
@@ -159,6 +160,11 @@ button {
 .controlButton:disabled {
   background: #A0A0A0;
   box-shadow: 0px 0px 5.8px 0px #A0A0A0;
+}
+
+.buttonIcon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .stats {

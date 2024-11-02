@@ -3,6 +3,9 @@ import { SimulationContext } from "../contexts/SimulationContext";
 import { useContext } from "react";
 import { Button } from "./Button";
 import BurgerSVG from "../assets/Burger.svg";
+import PlaySVG from "../assets/Play.svg";
+import PauseSVG from "../assets/Pause.svg";
+import ResetSVG from "../assets/Reset.svg";
 
 
 const ContextMenu = () => {
@@ -35,6 +38,7 @@ const ContextMenu = () => {
                 <Button
                     onClick={context.handleReset}
                     classes='cButtonRed'
+                    icon={ResetSVG}
                     disabled={context.isPlaying}
                 >
                     Reset
@@ -43,6 +47,7 @@ const ContextMenu = () => {
                     <Button
                         onClick={context.togglePlaying}
                         classes='cButtonGreen'
+                        icon={PlaySVG}
                         disabled={context.occupiedCells.size === 0}
                     >
                         Start
@@ -50,6 +55,7 @@ const ContextMenu = () => {
                     <Button
                         onClick={context.togglePlaying}
                         classes='cButtonYellow'
+                        icon={PauseSVG}
                         disabled={context.occupiedCells.size === 0}
                     >
                         Pause

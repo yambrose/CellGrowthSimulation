@@ -5,7 +5,9 @@ import { SimulationContext } from '../contexts/SimulationContext';
 import { Button } from './Button';
 import Stats from './Stats';
 import BurgerSVG from "../assets/Burger.svg";
-
+import PlaySVG from "../assets/Play.svg";
+import PauseSVG from "../assets/Pause.svg";
+import ResetSVG from "../assets/Reset.svg";
 import TitleSVG from '../assets/Title.svg';
 
 const SideBar: React.FC = () => {
@@ -70,6 +72,7 @@ const SideBar: React.FC = () => {
                     <Button
                         onClick={context.handleReset}
                         classes='cButtonRed'
+                        icon={ResetSVG}
                         disabled={context.isPlaying}
                     >
                         Reset
@@ -78,6 +81,7 @@ const SideBar: React.FC = () => {
                         <Button
                             onClick={context.togglePlaying}
                             classes='cButtonGreen'
+                            icon={PlaySVG}
                             disabled={context.occupiedCells.size === 0}
                         >
                             Start
@@ -85,6 +89,7 @@ const SideBar: React.FC = () => {
                         <Button
                             onClick={context.togglePlaying}
                             classes='cButtonYellow'
+                            icon={PauseSVG}
                             disabled={context.occupiedCells.size === 0}
                         >
                             Pause
