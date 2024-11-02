@@ -19,8 +19,9 @@ Cell Growth Simulation is an interactive web application built with React, TypeS
 ## Key Components
 - **[`SimulationContext`](src/contexts/SimulationContext.tsx)**: Manages simulation state and logic.
 - **[`GridCanvas`](src/components/GridCanvas.tsx)**: Handles cell rendering and user interactions.
-- **[`Stats`](src/components/Stats.tsx)**: Real-time population monitoring and graphing.
+- **[`Stats`](src/components/Stats.tsx)**: Population monitoring and graphing.
 - **[`SideBar`](src/components/SideBar.tsx)**: Parameter adjustment interface.
+- **[`ContextMenu`](src/components/ContextMenu.tsx)** Context menu for when SideBar is collapsed.
 
 ## Assumptions
 1. **Performance Constraints**:
@@ -43,22 +44,24 @@ Cell Growth Simulation is an interactive web application built with React, TypeS
 ### Memory Usage
 - **Cell Storage**: Uses Map data structure.
   - Memory: ~40 bytes per active cell.
-  - Maximum theoretical usage: ~1.6MB at 200x200 grid.
 
 ### Optimizations
-1. **Canvas Rendering**:
-   - Double buffering for smooth updates.
-   - Grid line batching for reduced draw calls.
-   - HiDPI scaling for crisp rendering.
-2. **State Management**:
-   - Efficient cell lifecycle tracking.
-   - Batched state updates.
-   - Memoized render operations.
+1. Canvas Rendering:
+   - Batched drawing operations
+   - Grid line optimization
+   - Cell state caching
+   - HiDPI scaling support
+
+2. State Management:
+   - Efficient cell lifecycle tracking
+   - Batched state updates
+   - Memoized calculations
+   - Optimized data structures
 
 ### Benchmarks
 - Grid size changes: <100ms
 - Cell updates: <16ms per frame
-- Memory footprint: <5MB for typical usage
+- Memory footprint: <10MB for typical usage
 
 ## Getting Started
 

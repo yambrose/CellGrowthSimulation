@@ -16,10 +16,12 @@
   --disabledThumbColor: #3a3a3a;
 }
 
+/* general */
 h1, h2, h3 {
   font-family: 'Inter';
   font-weight: 700;
   margin: 0;
+  text-transform: uppercase;
 }
 
 body {
@@ -99,11 +101,6 @@ button {
   padding: 0;
   margin: 0;
 }
-
-/* .sideBar:hover {
-  width: 5%;
-
-} */
 
 .sideBar h1 {
   font-size: 2rem;
@@ -243,6 +240,21 @@ button {
   z-index: 100;
 }
 
+.noData {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+}
+
+.graphCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
 input[type="number"] {
   font-family: 'Inter';
   height: 2rem;
@@ -336,4 +348,55 @@ input[type="range"]:disabled::-moz-range-thumb {
 input[type="range"]:disabled::-ms-thumb {
   background: var(--disabledThumbColor);
   cursor: not-allowed;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .pageContent {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sideBar {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: var(--defaultPadding);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .canvasContainer {
+    width: 100%;
+    height: calc(100vh - var(--defaultMargin) - var(--defaultPadding));
+    margin: 0;
+    padding: var(--defaultPadding);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .controlButton {
+    width: 100%;
+    height: 3rem;
+  }
+
+  .burgerIcon {
+    position: absolute;
+    top: var(--defaultMargin);
+    right: var(--defaultMargin);
+  }
+
+  .stats {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--defaultPadding);
+    margin: 0;
+    border-radius: 0;
+    border: none;
+  }
 }

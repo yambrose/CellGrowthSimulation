@@ -4,7 +4,7 @@ import { SimulationContext } from '../contexts/SimulationContext';
 const GridCanvas: React.FC = () => {
   const context = useContext(SimulationContext);
 
-  if (!context) return <div>Loading...</div>
+  if (!context) return null;
 
   const { gridSize, cellSize, occupiedCells } = context;
   const canvasSize = gridSize * cellSize;
@@ -13,6 +13,7 @@ const GridCanvas: React.FC = () => {
   const [startPan, setStartPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [panOffset, setPanOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
+  // Effect to redraw the canvas when the grid changes
   useEffect(() => {
     const canvas = canvasRef.current;
     // Happens if canvas is on the not null
@@ -31,6 +32,7 @@ const GridCanvas: React.FC = () => {
     context.displayStats();
   }, [occupiedCells, canvasSize, cellSize]);
 
+  // Effect to update the grid every updateInterval seconds
   useEffect(() => {
     let animationFrameId: number;
     let lastTime = 0;
@@ -38,7 +40,7 @@ const GridCanvas: React.FC = () => {
 
     const update = (timestamp: number) => {
       if (!context.isPlaying) return;
-      
+
       if (timestamp - lastTime >= updateInterval) {
         context.updateGrid();
         lastTime = timestamp;
@@ -56,6 +58,7 @@ const GridCanvas: React.FC = () => {
     };
   }, [context.isPlaying, context.updateInterval]);
 
+  // Effect to handle panning
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
@@ -63,35 +66,52 @@ const GridCanvas: React.FC = () => {
     }
   }, [panOffset]);
 
+  // Draw the grid
   const drawGrid = (ctx: CanvasRenderingContext2D) => {
     ctx.strokeStyle = "#fff";
     ctx.beginPath();
-  
+
     // Draw vertical lines
     for (let i = 0; i <= gridSize; i++) {
       const x = i * cellSize;
       ctx.moveTo(x, 0);
       ctx.lineTo(x, canvasSize);
     }
-  
+
     // Draw horizontal lines
     for (let i = 0; i <= gridSize; i++) {
       const y = i * cellSize;
       ctx.moveTo(0, y);
       ctx.lineTo(canvasSize, y);
     }
-  
+
     ctx.stroke();
   };
 
+  //Draw live cells
   const drawCells = (ctx: CanvasRenderingContext2D) => {
+    if (occupiedCells.size === 0) return;
+
     ctx.fillStyle = "#08192D";
+    ctx.beginPath();
+
+    // Batch all cell rectangles into a single path
     for (const key of occupiedCells.entries()) {
       const [x, y] = key[0].split(",").map(Number);
-      ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-    }
-  }
+      const cellX = x * cellSize;
+      const cellY = y * cellSize;
 
+      ctx.rect(cellX, cellY, cellSize, cellSize);
+    }
+
+    ctx.fill();
+
+    // Draw cell borders
+    ctx.strokeStyle = "#fff";
+    ctx.stroke();
+  };
+
+  // Handle the spawning of cells on click
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
 
     if (event.button !== 0) return;
@@ -111,42 +131,35 @@ const GridCanvas: React.FC = () => {
     }
   };
 
-  const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (event.button === 2) {
-      event.preventDefault();
-      setIsPanning(true);
-      setStartPan({ x: event.clientX - panOffset.x, y: event.clientY - panOffset.y });
-    }
-  };
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (isPanning) {
-      setPanOffset({
-        x: event.clientX - startPan.x,
-        y: event.clientY - startPan.y,
-      });
-    }
-  };
-
-  const handleMouseUp = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (event.button === 2) {
-      setIsPanning(false);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsPanning(false);
+  // Mouse events
+  const mouseHandlers = {
+    onClick: handleCanvasClick,
+    onMouseDown: (e: React.MouseEvent<HTMLCanvasElement>) => {
+      if (e.button === 2) {
+        e.preventDefault();
+        setIsPanning(true);
+        setStartPan({ x: e.clientX - panOffset.x, y: e.clientY - panOffset.y });
+      }
+    },
+    onMouseMove: (e: React.MouseEvent<HTMLCanvasElement>) => {
+      if (isPanning) {
+        setPanOffset({
+          x: e.clientX - startPan.x,
+          y: e.clientY - startPan.y,
+        });
+      }
+    },
+    onMouseUp: (e: React.MouseEvent<HTMLCanvasElement>) => {
+      if (e.button === 2) setIsPanning(false);
+    },
+    onMouseLeave: () => setIsPanning(false)
   };
 
   return (
     <canvas
       ref={canvasRef}
-      onClick={handleCanvasClick}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      style={{ cursor: isPanning ? 'grabbing' : 'grab', position: 'absolute', top: 0, left: 0,  backgroundColor: '#B6B6B6' }}
+      {...mouseHandlers}
+      style={{ cursor: isPanning ? 'grabbing' : 'grab', position: 'absolute', top: 0, left: 0, backgroundColor: '#B6B6B6' }}
     />
   );
 }
