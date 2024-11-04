@@ -212,6 +212,7 @@ button {
 }
 
 .stats {
+  width: 20%;
   position: absolute;
   display: flex;
   flex-direction: column;
