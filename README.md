@@ -1,5 +1,8 @@
 # Cell Growth Simulation
 
+## Demo
+You can try out this web-app at [`Demo`](http://cells.ambrosey.dev)
+
 ## Overview
 Cell Growth Simulation is an interactive web application built with React, TypeScript, and Vite. It simulates cellular growth patterns on a grid-based canvas. Users can manipulate various parameters to observe different growth behaviors while monitoring population statistics in real-time.
 
