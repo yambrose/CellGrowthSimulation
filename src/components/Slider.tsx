@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 interface SliderProps {
     value: number;
@@ -13,12 +13,19 @@ interface SliderProps {
 const Slider: React.FC<SliderProps> = ({ value, onChange, min, max, step, label, disabled }) => {
 
     const [isEditing, setIsEditing] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const turnOnEditing = () => {
         setIsEditing(true);
     }
 
     const turnOffEditing = () => {
+        if (!inputRef.current) return;
+        const newValue = Number(inputRef.current.value);
+
+        if (newValue >= min && newValue <= max) {
+            onChange(newValue);
+        }
         setIsEditing(false);
     };
 
@@ -30,7 +37,7 @@ const Slider: React.FC<SliderProps> = ({ value, onChange, min, max, step, label,
             <label onClick={turnOnEditing} className="inputLabel"
                 style={{ cursor: 'pointer' }}>{value}</label> :
             <span>
-                <input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))} />
+                <input ref={inputRef} type="number" defaultValue={value} />
                 <button onClick={turnOffEditing}>OK</button>
             </span>
         }
