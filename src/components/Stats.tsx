@@ -109,7 +109,7 @@ const Stats: React.FC = () => {
 
     return (
         <div className="stats">
-            <h2>Population History</h2>
+            <h2>Population Stats (Last 20)</h2>
             {!hasData && (
                 <div className='noData'>
                     <img src={NoDataSVG} alt="No data" />

@@ -18,7 +18,7 @@
 
 /* general */
 h1, h2, h3 {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   margin: 0;
   text-transform: uppercase;

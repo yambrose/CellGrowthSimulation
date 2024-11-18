@@ -46,6 +46,7 @@ const SideBar: React.FC = () => {
                     max={context.updateIntervalRange[1]}
                     step={0.25}
                     onChange={context.updateUpdateInterval}
+                    disabled={context.isPlaying}
                 />
                 <Slider
                     value={context.bacFailRate}
