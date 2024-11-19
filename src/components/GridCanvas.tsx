@@ -34,28 +34,13 @@ const GridCanvas: React.FC = () => {
 
   // Effect to update the grid every updateInterval seconds
   useEffect(() => {
-    let animationFrameId: number;
-    let lastTime = 0;
-    const updateInterval = context.updateInterval * 1000; // Update every 1000 milliseconds
-
-    const update = (timestamp: number) => {
-      if (!context.isPlaying) return;
-
-      if (timestamp - lastTime >= updateInterval) {
-        context.updateGrid();
-        lastTime = timestamp;
-      }
-
-      animationFrameId = requestAnimationFrame(update);
-    };
-
-    if (context.isPlaying) {
-      animationFrameId = requestAnimationFrame(update);
-    }
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
+    if (!context.isPlaying) return;
+  
+    const intervalId = setInterval(() => {
+      context.updateGrid();
+    }, context.updateInterval * 1000); // Convert seconds to milliseconds
+  
+    return () => clearInterval(intervalId);
   }, [context.isPlaying, context.updateInterval]);
 
   // Effect to handle panning

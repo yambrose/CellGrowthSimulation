@@ -6,13 +6,13 @@ interface SimulationContextType {
     cellSize: number;
     cellSizeRange: [number, number];
     updateInterval: number;
+    updateIntervalRange: [number, number];
     occupiedCells: Map<string, number>;
     isPlaying: boolean;
     bacFailRate: number;
     bacFailRateRange: [number, number];
     bacLifespan: number;
     bacLifespanRange: [number, number];
-    updateIntervalRange: [number, number];
     sideBarOpen: boolean;
     cellCountHistory: number[];
 

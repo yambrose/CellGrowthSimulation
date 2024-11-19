@@ -41,7 +41,7 @@ const SideBar: React.FC = () => {
                 />
                 <Slider
                     value={context.updateInterval}
-                    label='Update Interval'
+                    label='Update Interval (s)'
                     min={context.updateIntervalRange[0]}
                     max={context.updateIntervalRange[1]}
                     step={0.25}
